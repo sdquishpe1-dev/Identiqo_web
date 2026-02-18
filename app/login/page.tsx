@@ -6,14 +6,7 @@ import Link from "next/link";
 import { loginGoogle, loginUser } from "@/lib/auth_service";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
-import {
-  Mail,
-  Lock,
-  Eye,
-  EyeOff,
-  Sparkles,
-  ArrowRight,
-} from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Sparkles, ArrowRight } from "lucide-react";
 
 declare global {
   interface Window {
@@ -45,7 +38,7 @@ export default function LoginPage() {
             theme: "outline",
             size: "large",
             width: 350,
-          }
+          },
         );
 
         clearInterval(interval);
@@ -69,10 +62,10 @@ export default function LoginPage() {
 */
       const data = await loginGoogle(response);
       localStorage.setItem("token", data.token);
-     if(data.hasProfile){
+      if (data.hasProfile) {
         toast.success("¡Bienvenido de vuelta! 🚀");
         router.push("/dashboard");
-      }else{
+      } else {
         router.push("/createProfile");
       }
     } catch {
@@ -88,18 +81,18 @@ export default function LoginPage() {
     try {
       const data = await loginUser(email, password);
       localStorage.setItem("token", data.token);
-      
-if (data.role === 'ADMIN') {
-  console.info('Admin logueado; puedes redirigir a /adm');
-}console.log("rol",data.role);
-      if(data.hasProfile){
-        toast.success("¡Bienvenido de vuelta!");
-       // router.push("/dashboard");
-      }else{
-       // router.push("/createProfile");
+
+      if (data.role === "ADMIN") {
+        console.info("Admin logueado; puedes redirigir a /adm");
+        router.push("/admin");
       }
-      
-      
+      console.log("rol", data.role);
+      if (data.hasProfile) {
+        toast.success("¡Bienvenido de vuelta!");
+        // router.push("/dashboard");
+      } else {
+        // router.push("/createProfile");
+      }
     } catch (err: any) {
       toast.error(err.message || "Error al iniciar sesión");
     } finally {
@@ -332,11 +325,17 @@ if (data.role === 'ADMIN') {
           {/* TÉRMINOS */}
           <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-6 px-4">
             Al iniciar sesión, confirmas que aceptas nuestros{" "}
-            <a href="#" className="underline hover:text-gray-700 dark:hover:text-gray-300">
+            <a
+              href="#"
+              className="underline hover:text-gray-700 dark:hover:text-gray-300"
+            >
               Términos de Servicio
             </a>{" "}
             y{" "}
-            <a href="#" className="underline hover:text-gray-700 dark:hover:text-gray-300">
+            <a
+              href="#"
+              className="underline hover:text-gray-700 dark:hover:text-gray-300"
+            >
               Política de Privacidad
             </a>
           </p>
