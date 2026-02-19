@@ -1,6 +1,6 @@
 export interface Template{
    id:string;
-   name:string;
-   isPremium:boolean;
-   previewImage:string;
+   nombre:string;
+   esPremium:boolean;
+   imagenPrevia:string;
 }
